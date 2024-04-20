@@ -17,7 +17,7 @@ def text_from_sentences(sentences):
     try:
         return f'{".".join(sentences)}.'
     except TypeError as e:
-        print(f'Value of the wrong type was passed as function argument. Should be array of strings', e)
+        print(f'Value of the wrong type was passed as func argument. Should be array of strings', e)
 
 
 def text_from_paragraphs(paragraphs):
@@ -94,4 +94,3 @@ if __name__ == '__main__':
     whitespaces_count = count_whitespaces(result_text)
     print(f'Whitespaces count in final text: {whitespaces_count}')
     print(f'Processed result text: \n {result_text}')
-
