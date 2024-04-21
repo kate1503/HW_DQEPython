@@ -1,5 +1,6 @@
 import random
 import string
+from collections import defaultdict
 
 
 def generate_random_dict():
@@ -19,16 +20,25 @@ def generate_list_of_random_dicts():
 
 
 def common_dict(list_of_dicts):
-    merged_dict = {}
-    for i, dictionary in enumerate(list_of_dicts, start=1):
+    merged_dict = defaultdict(list)
+
+    # Collect all unique keys and their values in merged_dict
+    for num_dict, dictionary in enumerate(list_of_dicts):
         for key, value in dictionary.items():
-            if key in merged_dict:
-                merged_dict[key] = max(merged_dict[key], value)
-                if merged_dict[key] == value:
-                    merged_dict[f'{key}_{i}'] = merged_dict.pop(key)
-            else:
-                merged_dict[key] = value
-    return merged_dict
+            # Adding a tuple (dictionary_number, value) to the list corresponding
+            # to the current key in the merged_dict
+            merged_dict[key].append((num_dict, value))
+    result_dict = {}
+    for key, values in merged_dict.items():
+        # Check if the current key is unique (it is unique if there is only one tuple in list)
+        if len(values) == 1:
+            result_dict[key] = values[0][1]
+        else:
+            # Find the tuple with max value for the current key
+            max_value = max(values, key=lambda x: x[1])
+            # Rename key and set max value
+            result_dict[f'{key}_{max_value[0]}'] = max_value[1]
+    return result_dict
 
 
 if __name__ == '__main__':
