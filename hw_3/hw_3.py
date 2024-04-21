@@ -14,7 +14,7 @@ but ALL whitespaces. I got 87.
 """
 
 # Correct misspelling error iz -> is where it is needed
-iz_pattern = re.compile(r"\biz\b", re.IGNORECASE)
+iz_pattern = re.compile(r'(?<!”)\biz\b(?!”)', re.IGNORECASE)
 replacement = "is"
 misspelling_fixed_text = iz_pattern.sub(replacement, original_text)
 
