@@ -1,24 +1,19 @@
 from datetime import datetime
 
 
-class PublicationTool:
-    def __init__(self, publication_type):
-        self.publication_type = publication_type
-        self.feed_data = []
-
-    def add_record(self, feed):
-        self.feed_data.append(feed)
-
-    def publish(self, file_name):
-        with open(file_name, "a") as file:
-            for feed in self.feed_data:
-                file.write(feed.publish_format())
-
-
 class Publication:
     def __init__(self, name, text):
         self.name = name
         self.text = text
+
+    def publish_format(self):
+        return (f'\n{self.name}:------------------------------------------\n'
+                f'\n{self.text}\n'
+                f'\n-----------------------------------------------\n')
+
+    def publish(self, file_name):
+        with open(file_name, "a") as file:
+            file.write(self.publish_format())
 
 
 class NewsFeed(Publication):
@@ -38,11 +33,7 @@ class NewsFeed(Publication):
         return (f'\n{self.name}:------------------------------------------\n'
                 f'{self.text}\n'
                 f'City: {self.city}, {self.publish_date()}\n'
-                f'-----------------------------------------------')
-
-    def publish(self, file_name):
-        with open(file_name, "a") as file:
-            file.write(self.publish_format())
+                f'\n-----------------------------------------------\n')
 
 
 class PrivateAd(Publication):
@@ -63,21 +54,37 @@ class PrivateAd(Publication):
         return (f'\n{self.name}:------------------------------------------\n'
                 f'{self.text}\n'
                 f'Actual until: {self.expiration_date}, {self.days_left()} day(s) left\n'
-                f'-----------------------------------------------')
+                f'\n-----------------------------------------------\n')
 
-    def publish(self, file_name):
-        with open(file_name, "a") as file:
-            file.write(self.publish_format())
+
+class CommunityEvent(Publication):
+    def __init__(self, name, text, speaker, date):
+        Publication.__init__(self, name=name, text=text)
+        self.speaker = speaker
+        self.date = date
+
+    def get_date(self):
+        return self.__format_date()
+
+    def __format_date(self):
+        return self.date.strftime('%Y-%m-%d %H:%M-%S')
+
+    def publish_format(self):
+        return (f'\n{self.name}:------------------------------------------\n'
+                f'{self.text}\n'
+                f'Speaker: {self.speaker}\n'
+                f'Event date: {self.date}\n'
+                f'\n-----------------------------------------------\n')
 
 
 while True:
-    feed_type = input("Enter feed type: news, ad (or press any key to exit):")
+    feed_type = input("Enter feed type: news, ad, event (or press any key to exit):")
     if feed_type == "news":
         text_input = input("Enter text: ")
         city_input = input("Enter city: ")
         publication_feed = NewsFeed("News", text_input, city_input)
         publication_feed.publish("feeds_file.txt")
-    if feed_type == "ad":
+    elif feed_type == "ad":
         text_input = input("Enter text: ")
         expiration_date_input = input("Enter expiration date (format: YYYY-MM-DD): ")
         try:
@@ -86,6 +93,12 @@ while True:
             publication_feed.publish("feeds_file.txt")
         except ValueError:
             print("Wrong date format was entered. Please try again with date format: YYYY-MM-DD.")
+    elif feed_type == "event":
+        event_description = input("Enter event description: ")
+        event_speaker = input("Enter Speaker name: ")
+        event_date = input("Enter event date: ")
+        publication_feed = CommunityEvent("Event", event_description, event_speaker, event_date)
+        publication_feed.publish("feeds_file.txt")
     else:
         print("Not existing feed type entered")
         break
