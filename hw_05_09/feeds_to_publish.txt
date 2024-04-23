@@ -1,0 +1,8 @@
+news:News feed 1;Krakow
+news:News feed 2;Wroclaw
+news:News feed 3;London
+ad:New Private Ad 1;2024-06-09
+ad:New Private Ad 2;2024-06-25
+event:New Event 1;Bob Murray;2024-09-09
+event:New Event 2;Alex;2024-05-10
+event:New Event 3;Tatsiana Bogdan;2024-06-15
