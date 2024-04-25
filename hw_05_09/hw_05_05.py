@@ -83,14 +83,14 @@ while True:
         text_input = input("Enter text: ")
         city_input = input("Enter city: ")
         publication_feed = NewsFeed("News", text_input, city_input)
-        publication_feed.publish("feeds_file.txt")
+        publication_feed.publish("published_feeds_file.txt")
     elif feed_type == "ad":
         text_input = input("Enter text: ")
         expiration_date_input = input("Enter expiration date (format: YYYY-MM-DD): ")
         try:
             date_object = datetime.strptime(expiration_date_input, "%Y-%m-%d").date()
             publication_feed = PrivateAd("Add", text_input, date_object)
-            publication_feed.publish("feeds_file.txt")
+            publication_feed.publish("published_feeds_file.txt")
         except ValueError:
             print("Wrong date format was entered. Please try again with date format: YYYY-MM-DD.")
     elif feed_type == "event":
@@ -98,7 +98,7 @@ while True:
         event_speaker = input("Enter Speaker name: ")
         event_date = input("Enter event date: ")
         publication_feed = CommunityEvent("Event", event_description, event_speaker, event_date)
-        publication_feed.publish("feeds_file.txt")
+        publication_feed.publish("published_feeds_file.txt")
     else:
         print("Not existing feed type entered")
         break

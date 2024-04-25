@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
     user_input = input("Enter file path with feeds to publish or press Enter to use default folder:")
     default_path = "feeds_to_publish.txt"
-    feeds_published = "feeds_file.txt"
+    feeds_published = "published_feeds_file.txt"
     feeds_to_publish_file = user_input.strip() if user_input else default_path
 
     if os.path.exists(feeds_to_publish_file):

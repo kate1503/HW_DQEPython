@@ -119,7 +119,7 @@ if __name__ == '__main__':
         if os.path.isfile(file_path):
             feed = FeedTool()
             feed.process_feeds_from_file(file_path)
-            feed.publish("feeds_file.txt")
+            feed.publish("published_feeds_file.txt")
             os.remove(file_path)
     else:
         print("File doesn't exist")

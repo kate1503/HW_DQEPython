@@ -1,4 +1,4 @@
-news:News feed 1;Krakow
+news:An elephant escaped the confines of a traveling circus and roamed the streets of Butte, Montana, on Tuesday before it was recaptured without incident;Montana
 news:News feed 2;Wroclaw
 news:News feed 3;London
 ad:New Private Ad 1;2024-06-09
